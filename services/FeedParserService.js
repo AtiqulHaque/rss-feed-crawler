@@ -39,13 +39,14 @@ class FeedParserService {
                     totalItems = [];
                 }
 
-                console.log(item['pubDate']);
+                console.log(item);
                 totalItems.push({
                     title: item.title,
                     content: item.content,
                     topic: this.capitalizeFirstLetter(extractorService.extractTopic(item.content)),
                     campaign_id: this.campaign_id,
                     pub_Date: item['pubDate'],
+                    source_url: this.feed_url,
                 });
             });
 
