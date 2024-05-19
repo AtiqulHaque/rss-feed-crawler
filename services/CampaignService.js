@@ -36,6 +36,27 @@ class CampaignService {
      * @description Action for parse feed file
      * @returns {object} - Status and data of the deletion operation
      */
+    async addCampaigns(params) {
+        const { status, data } = await this.repository.addCampaign(params);
+
+        // If file not found, return error
+        if (status !== 'success') {
+            return {
+                status: 'error',
+                data: 'No Campaigs not found',
+            };
+        }
+
+        return {
+            status,
+            data,
+        };
+    }
+
+    /**
+     * @description Action for parse feed file
+     * @returns {object} - Status and data of the deletion operation
+     */
     async campaignStatusUpdate(campaign_id, status) {
         const response = await this.repository.updateCampiagnStatus(campaign_id, status);
 

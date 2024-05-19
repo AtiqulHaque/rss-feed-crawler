@@ -23,7 +23,7 @@ const CampaignSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            default: 'active',
+            default: 'inActive',
         },
         last_running_time: {
             type: Date,

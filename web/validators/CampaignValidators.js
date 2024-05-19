@@ -1,22 +1,17 @@
 const { body, param, validationResult } = require('express-validator');
 
 const Response = require('../../utilities/response');
-let fileDeleteValidators = [
-    param('privatekey', 'Private key is required')
-        .isLength({ min: 32 })
-        .withMessage('Minimum character limit is 32')
-        .isLength({ max: 33 })
-        .withMessage('Maximum character limit is 32')
-        .trim()
-        .not()
-        .isEmpty(),
+
+let campaignAddValidators = [
+    body('name', 'Campaign name is required').isLength({ min: 5 }).trim().not().isEmpty(),
+    body('feed_url', 'Campaign Rss feed url is required').isURL().trim().not().isEmpty(),
+    body('run_frequency', 'Campaign Running requency required').trim().not().isEmpty(),
+    body('max_running_time', 'Campaign Max Runnign time is required').trim().not().isEmpty(),
 ];
 
-let fileDownloderValidators = [
-    param('publickey', 'Public key is required')
-        .isLength({ min: 32 })
-        .withMessage('Minimum character limit is 32')
-        .isLength({ max: 33 })
+let campaignActiveValidators = [
+    param('campaignId', 'Campaign id is required')
+        .isLength({ max: 25 })
         .withMessage('Maximum character limit is 32')
         .trim()
         .not()
@@ -34,6 +29,6 @@ const validationHandler = function (req, res, next) {
 };
 module.exports = {
     validationHandler,
-    fileDownloderValidators,
-    fileDeleteValidators,
+    campaignActiveValidators,
+    campaignAddValidators,
 };

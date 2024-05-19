@@ -1,9 +1,5 @@
 const { createWrapper } = require('../../utilities/newrelic');
-
 const logger = require('../../utilities/logger');
-
-const { postMessageToQueue } = require('../../utilities/bullmq');
-
 const CampaignService = require('./../../services/CampaignService');
 const FeedParserService = require('./../../services/FeedParserService');
 const ArticleService = require('./../../services/ArticleService');
@@ -56,5 +52,4 @@ async function init(campaign) {
             last_status: 'error',
         });
     }
-    // campaign._id, campaign.feed_url;
 }

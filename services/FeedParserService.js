@@ -2,6 +2,7 @@ let Parser = require('rss-parser');
 const { postMessageToQueue } = require('./../utilities/bullmq');
 const logger = require('../utilities/logger');
 const TopicExtractorService = require('./TopicExtractorService');
+const app_settings = require('./../settings/app');
 
 /**
  * @description Service for feed parseer
@@ -20,16 +21,18 @@ class FeedParserService {
      */
     async parse() {
         try {
-            const extractorService = new TopicExtractorService();
+            const extractorService = new TopicExtractorService({
+                language: 'english',
+                remove_digits: true,
+                return_changed_case: true,
+                remove_duplicates: false,
+            });
+
             let parser = new Parser();
-
             let feed = await parser.parseURL(this.feed_url);
-
-            console.log('Total length of feed : ' + feed.items.length);
-
             let totalItems = [];
-
             let count = 0;
+
             feed.items.forEach(async (item) => {
                 if (totalItems.length > 10) {
                     await postMessageToQueue('article_parser', 'handleOne', totalItems);
@@ -39,13 +42,25 @@ class FeedParserService {
                     totalItems = [];
                 }
 
-                console.log(item);
+                const isTitle = typeof item[app_settings.title] === 'undefined';
+                const isContent = typeof item[app_settings.content] === 'undefined';
+                const isPubDate = typeof item[app_settings.pub_Date] === 'undefined';
+
+                if (isTitle || isContent || isPubDate) {
+                    logger.info(
+                        `Campaign :  ${this.campaign_id}  found article which is not valid`
+                    );
+                    return;
+                }
+
                 totalItems.push({
-                    title: item.title,
-                    content: item.content,
-                    topic: this.capitalizeFirstLetter(extractorService.extractTopic(item.content)),
+                    title: item[app_settings.title],
+                    content: item[app_settings.content],
+                    topic: this.capitalizeFirstLetter(
+                        extractorService.extractTopic(item[app_settings.content])
+                    ),
                     campaign_id: this.campaign_id,
-                    pub_Date: item['pubDate'],
+                    pub_Date: item[app_settings.pub_Date],
                     source_url: this.feed_url,
                 });
             });
@@ -54,7 +69,8 @@ class FeedParserService {
                 await postMessageToQueue('article_parser', 'handleOne', totalItems);
             }
         } catch (e) {
-            console.log('Error found : ', e);
+            console.error('Error found : ', e);
+            throw new Error(`Found error while parsing Campaign : ${this.campaign_id}`);
         }
 
         return {

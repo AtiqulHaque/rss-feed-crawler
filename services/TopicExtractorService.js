@@ -2,18 +2,12 @@ const keyword_extractor = require('keyword-extractor');
 const { forEach } = require('../utilities/logger');
 
 class TopicExtractorService {
-    constructor() {
-        // this.lda = new Lda(options, document, dictionary);
+    constructor(settings) {
+        this.settings = settings;
     }
 
     extractTopic(document) {
-        const allkeywords = keyword_extractor.extract(document, {
-            language: 'english',
-            remove_digits: true,
-            return_changed_case: true,
-            remove_duplicates: false,
-        });
-
+        const allkeywords = keyword_extractor.extract(document, this.settings);
         let topicsObj = {};
 
         allkeywords.forEach((eachTopic) => {
@@ -25,7 +19,7 @@ class TopicExtractorService {
         });
 
         let maxCount = 0;
-        let topic = null;
+        let topic = 'Default Random Topic';
 
         for (const key in topicsObj) {
             if (Object.hasOwnProperty.call(topicsObj, key)) {
