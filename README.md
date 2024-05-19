@@ -33,7 +33,7 @@ Run container with required dependencies:
 make up
 ```
 
-#### Step 3:
+#### Step 4:
 
 Seed the the database:
 
