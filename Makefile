@@ -13,6 +13,9 @@ up: #: Start the development environment services
 test: #: Run tests using jest
 	docker compose run --rm crawling-service npm run test
 
+seed: #: Seed database
+	docker-compose exec -it crawling-service  npm run seed
+
 clean: #: Bring down containers, remove all data
 	docker compose down --remove-orphans --volumes
 

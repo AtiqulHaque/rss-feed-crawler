@@ -33,6 +33,14 @@ Run container with required dependencies:
 make up
 ```
 
+#### Step 3:
+
+Seed the the database:
+
+```bash
+make seed
+```
+
 Application will be started and available at http://localhost:3300/api/ping
 
 ## Folder Structure
