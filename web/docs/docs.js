@@ -1,11 +1,9 @@
-
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
-        title: 'File sharing api documentation',
+        title: 'RSS Feed Aggrigator api documentation',
         version: '1.0.0',
-        description:
-            'This is a REST API application made with Express.',
+        description: 'This is a REST API application made with Express.',
     },
     servers: [
         {

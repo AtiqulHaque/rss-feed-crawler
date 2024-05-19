@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "8b031c68-cf2d-46ec-a573-779cc48175cf",
+		"name": "RSS FEED API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1275643",
+		"_collection_link": "https://solar-capsule-54406.postman.co/workspace/Team-Workspace~e376df97-49e5-41de-874f-ad97c16ec637/collection/1275643-8b031c68-cf2d-46ec-a573-779cc48175cf?action=share&source=collection_link&creator=1275643"
+	},
+	"item": [
+		{
+			"name": "add_campaign",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\" : \"Huffington Post\",\n   \"feed_url\" : \"https://www.yahoo.com/news/rss\",\n   \"run_frequency\" : 10,\n   \"max_running_time\" : 120\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/campaign/add",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"campaign",
+						"add"
+					],
+					"query": [
+						{
+							"key": "file",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "campaign_active",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/campaign/active/6645df6d5850766e5b6446d5",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"campaign",
+						"active",
+						"6645df6d5850766e5b6446d5"
+					],
+					"query": [
+						{
+							"key": "file",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/ping",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

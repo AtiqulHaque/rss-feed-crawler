@@ -1,4 +1,4 @@
-# Scalable RSS Fedd Aggrigator
+# Scalable RSS Feed Aggrigator
 
 ## System Architecture Diagram
 
@@ -33,21 +33,7 @@ Run container with required dependencies:
 make up
 ```
 
-Application will be started and available at http://localhost:3000/api/ping
-
-#### Step 4:
-
-To run unit tests, execute the following command:
-
-```bash
-docker-compose exec crawling-service sh
-```
-
-then run
-
-```bash
-npm test
-```
+Application will be started and available at http://localhost:3300/api/ping
 
 ## Folder Structure
 
