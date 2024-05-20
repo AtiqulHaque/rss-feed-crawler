@@ -6,6 +6,16 @@
 
 ---
 
+## Project Description
+
+I try to create a very simple but highly scalable Rss Feed Aggrigator. It will accept RSS feed content as campaign then there is a scheduler which will run every 5 mins interval.
+Scheduler will process every RSS feed and save all the articles into DB.
+
+Feed crawling task is fully idempotent operation. For the topic selection part I didn't use any LLM. I just extract all keywords from the content, find out which one is max use then make that a topic.
+
+Article insertion has a format you can check in app_settings.
+Right now I expose 2 api one for creating campaigns and another one is an active campaign. After active campaign scheduler will run that campaign
+
 ## Installation
 
 #### Step 1:
